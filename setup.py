@@ -23,7 +23,9 @@ setup(
     package_dir={'webhook_logger':
                  'webhook_logger'},
     include_package_data=True,
-    install_requires=[],
+    install_requires=[
+        'requests',
+    ],
     license="MIT license",
     zip_safe=False,
     keywords='webhook_logger',
@@ -41,5 +43,8 @@ setup(
         'Programming Language :: Python :: 3.5',
     ],
     test_suite='tests',
-    tests_require=[]
+    tests_require=[
+        'requests_mock',
+        'mock'
+    ]
 )
