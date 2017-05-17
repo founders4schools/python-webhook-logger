@@ -10,7 +10,7 @@ with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
 setup(
-    name='webhook_logger',
+    name='webhook-logger',
     version='0.1.0',
     description="A Python logger to send information to Webhooks",
     long_description=readme + '\n\n' + history,
