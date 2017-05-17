@@ -28,5 +28,5 @@ deploy:
     secure: PLEASE_REPLACE_ME
   on:
     tags: true
-    repo: founders4schools/webhook_logger
+    repo: founders4schools/python-webhook-logger
     condition: $TOXENV == py27

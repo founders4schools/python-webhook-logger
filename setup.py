@@ -16,7 +16,7 @@ setup(
     long_description=readme + '\n\n' + history,
     author="Founders4Schools",
     author_email='dev@founders4schools.org.uk',
-    url='https://github.com/founders4schools/webhook_logger',
+    url='https://github.com/founders4schools/python-webhook-logger',
     packages=[
         'webhook_logger',
     ],
