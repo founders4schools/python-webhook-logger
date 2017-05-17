@@ -11,7 +11,7 @@ with open('HISTORY.rst') as history_file:
 
 setup(
     name='webhook-logger',
-    version='0.1.0',
+    version='0.1.1',
     description="A Python logger to send information to Webhooks",
     long_description=readme + '\n\n' + history,
     author="Founders4Schools",
