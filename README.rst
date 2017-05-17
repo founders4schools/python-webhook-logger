@@ -16,6 +16,9 @@ Python Webhook Logger
 .. image:: https://pyup.io/repos/github/founders4schools/python-webhook-logger/shield.svg
      :target: https://pyup.io/repos/github/founders4schools/python-webhook-logger/
      :alt: Updates
+     
+.. image:: https://codecov.io/gh/founders4schools/python-webhook-logger/branch/master/graph/badge.svg
+  :target: https://codecov.io/gh/founders4schools/python-webhook-logger     
 
 
 A Python logger to send information to Webhooks
