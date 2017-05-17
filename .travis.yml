@@ -25,7 +25,19 @@ deploy:
   distributions: sdist bdist_wheel
   user: Bruno.Alla
   password:
-    secure: PLEASE_REPLACE_ME
+    secure: !!binary |
+      RkRiZXhhZGhEWlBkZTJrY0xEKytDdS9HOWxFWmlDOFRZNmhpWFg4UWV5RjByelJlSjN5bFdmMGtH
+      dHRhSmlQMVIyZmVaZytoSGxIRkF0N1hteDJDbjhyekRTa1pQVWRkNG00bWQ1elRaV1ROck96VHNk
+      NmlZbE5CN0V5UzhHYzdISzNoT3VNWjEwRHNQcTFhNGtPRERJRlBPOFF6a1gyRmdGZm84OElxajZJ
+      SDJXdlhhelFjdVlMRHZkUGFmQWx6a2VaY2s2SmEyNXBkdVVvcExjM2Y5WHZzRnc4VzVzZ3JuU2d2
+      eVBoVU9TbDUrMmZKSmJISm1tMUt0aXNPcTdKL3VBK1QzR1NZTThzbC9xc09TRzV3RHVsdUtFVXlq
+      N2Rya1ZraDZSWlExU2VtcnRzZjNuL0QwelJ0Rkw4QmNrc1FuU3pyczhUaTJpWlkyaWpjcS9qckkv
+      a3FTS1lDRXlleU44aGU3VnZ4TkdUTndGR25NMmhjWEM2NndtaWgvT05JVlY0eDZHOUh3RzdkUTVs
+      a3R1Nzl4SFlGTzFSYitKUGdmTlRxK1phem5wV3pROFhRWHdqMm1CTVpWdmV4YTJlZlFuSHdEYTR6
+      UU9jT2w1dEcxTUNWQlVNRFZXYnVvY3cxbURQbzcwU1lpNCtPTzlXSjM0Wk10MTlLbzhqQ1Jqam9h
+      NFZ3Uy9zY20rUzM4aGNmem9UKzFEUnJtOXQ0M01mbEd1Wlg3a0RRNnI0WXhQR3ZramM0ZjFGZjdS
+      b2JycXl6aGEvaUdGRXltNCtJNWUwYzNRY1JPMitzYXRlcU96ajBaaG5KK1hweEMrMFN2TTFCQ0F3
+      eTNtbjRiMGpHOWdjUEJ5citpeUdxTStLN1l0K0JQS014Nm9pOTBjd3hTQkJqYmFqMFQ4eFVMclU9
   on:
     tags: true
     repo: founders4schools/python-webhook-logger
