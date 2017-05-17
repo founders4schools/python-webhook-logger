@@ -12,7 +12,7 @@ To install Python Webhook Logger, run this command in your terminal:
 
 .. code-block:: console
 
-    $ pip install webhook_logger
+    $ pip install webhook-logger
 
 This is the preferred method to install Python Webhook Logger, as it will always install the most recent stable release. 
 
