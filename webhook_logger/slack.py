@@ -10,8 +10,6 @@ try:
 except ImportError:
     settings = None
 
-logger = logging.getLogger(__name__)
-
 
 class SlackHandler(logging.Handler):
     """Logging handler to post to Slack to the webhook URL"""
