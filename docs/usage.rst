@@ -11,7 +11,9 @@ could potentially be added later.
 Slack
 -----
 
-The slack provider is updating a Slack Webhook with some styled messages:
+The slack module provide 3 main features to log messages via a Slack Webhook.
+By default it simply logs the rendered text of the message messages, but
+it's possible to filter only some logs and give a nice styling:
 
 .. image:: _static/slack/example.png
 
@@ -71,10 +73,36 @@ for instance when a user signs up or when a purchase is made.
     logger.info(":wave: Hello World", extra={'notify_slack': True})
 
 
+Styling
++++++++
+
+If you wish to have a colour bar next to each message reflecting the logging
+severity, you need to use the `SlackFormatter` and attach it to your handler:
+
+.. code-block:: python
+
+    from webhook_logger.slack import SlackFormatter
+
+    h.formatter = SlackFormatter()
+
+    # Green border
+    logger.info("Hello World")
+
+    # Orange border
+    logger.warning("Something isn't looking good")
+
+    # Pink border
+    logger.error("Hum... Crash here")
+
+    # Red border
+    logger.critical("Emergency here!")
+
+
 Dict config integration
 +++++++++++++++++++++++
 
-This package can be used with `dictConfig`_. Here is a minimal config using filtering:
+This package can be used with `dictConfig`_. Here is a config using all the
+features described above:
 
 .. code-block:: python
 
@@ -92,7 +120,13 @@ This package can be used with `dictConfig`_. Here is a minimal config using filt
                 'filters': ['slack_filter'],
                 'class': 'webhook_logger.slack.SlackHandler',
                 'hook_url': 'https://hooks.slack.com/services/XXXXXXXX/AAAAAAAAA/aaaaaaaaaaaa',
+                'formatter': 'slack_format',
             }
+        },
+        'formatters': {
+            'slack_format': {
+                '()': 'webhook_logger.slack.SlackFormatter',
+            },
         },
         'loggers': {
             'my_logger': {
@@ -106,7 +140,8 @@ This package can be used with `dictConfig`_. Here is a minimal config using filt
 Django Integration
 ++++++++++++++++++
 
-There is one setting to help if you're using Django, the hook URL may be
+Django loggers are configured using the dictConfig described above, but there
+is one additional setting to help if you're using Django, the hook URL may be
 configured using a setting:
 
 .. code-block:: python

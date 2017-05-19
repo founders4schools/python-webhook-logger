@@ -1,10 +1,10 @@
 # -*- coding: utf-8
 from __future__ import unicode_literals, absolute_import
 
-import json
 import logging
 
 import requests
+
 try:
     from django.conf import settings
 except ImportError:
@@ -13,10 +13,11 @@ except ImportError:
 
 class SlackHandler(logging.Handler):
     """Logging handler to post to Slack to the webhook URL"""
+
     def __init__(self, hook_url=None, *args, **kwargs):
         super(SlackHandler, self).__init__(*args, **kwargs)
         self._hook_url = hook_url
-        self.formatter = SlackFormatter()
+        self.formatter = SimpleSlackFormatter()
 
     @property
     def hook_url(self):
@@ -30,10 +31,7 @@ class SlackHandler(logging.Handler):
         """
         try:
             slack_data = self.format(record)
-            requests.post(
-                self.hook_url, data=slack_data,
-                headers={'Content-Type': 'application/json'}
-            )
+            requests.post(self.hook_url, json=slack_data)
         except Exception:
             self.handleError(record)
 
@@ -54,8 +52,15 @@ class SlackLogFilter(logging.Filter):
 
         `logger.info("...", extra={'notify_slack': True})`
     """
+
     def filter(self, record):
         return getattr(record, 'notify_slack', False)
+
+
+class SimpleSlackFormatter(logging.Formatter):
+    """Basic formatter without styling"""
+    def format(self, record):
+        return {'text': record.getMessage()}
 
 
 class SlackFormatter(logging.Formatter):
@@ -78,4 +83,4 @@ class SlackFormatter(logging.Formatter):
             ret['color'] = loglevel_colour[record.levelname]
         except KeyError:
             pass
-        return json.dumps({'attachments': [ret]})
+        return {'attachments': [ret]}
