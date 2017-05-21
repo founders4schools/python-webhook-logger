@@ -6,6 +6,7 @@ import unittest
 from logging.config import dictConfig
 
 import mock
+import requests
 import requests_mock
 
 from webhook_logger.slack import SlackHandler, SlackLogFilter, SlackFormatter
@@ -51,13 +52,13 @@ class TestSlackLogging(unittest.TestCase):
 
     def _build_logger(self, name, url=None, filter=False, formatter=False):
         logger = logging.getLogger(name)
-        logger.setLevel(logging.INFO)
+        logger.setLevel(logging.DEBUG)
         h = SlackHandler(hook_url=url)
         if filter:
             h.addFilter(SlackLogFilter())
         if formatter:
             h.formatter = SlackFormatter()
-        h.setLevel(logging.INFO)
+        h.setLevel(logging.DEBUG)
         logger.addHandler(h)
         return logger
 
@@ -99,12 +100,18 @@ class TestSlackLogging(unittest.TestCase):
         actual_dict = json.loads(actual)
         record = actual_dict["attachments"][0]
         self.assertEqual(record["text"], msg)
-        self.assertEqual(record["color"], color)
+        if color is None:
+            self.assertNotIn("color", record)
+        else:
+            self.assertEqual(record["color"], color)
         self.assertIsNotNone(record['ts'])
 
     def test_formatter(self):
         self.rm.post('https://some-formatted-hook.com/xyz', text='ok')
         logger = self._build_logger('formatted_on', 'https://some-formatted-hook.com/xyz', formatter=True)
+
+        logger.debug("Test debugging")
+        self._assert_has_attachment("Test debugging", None)
 
         logger.info("Test formatting")
         self._assert_has_attachment("Test formatting", "good")
@@ -128,3 +135,12 @@ class TestSlackLogging(unittest.TestCase):
         logger.info("Test with dictConfig", extra={'notify_slack': True})
         self.assertEqual(self.rm.call_count, 1)
         self._assert_has_attachment("Test with dictConfig", "good")
+
+    @mock.patch('webhook_logger.slack.SlackHandler.handleError')
+    def test_connection_error(self, error_handler):
+        """Should call logging error handler when offline"""
+        self.rm.post('https://some-hook.com/exception-log', exc=requests.ConnectionError)
+        logger = self._build_logger('exception', 'https://some-hook.com/exception-log')
+        logger.info("Testing when something fails on the wire")
+        self.assertEqual(self.rm.call_count, 1)
+        error_handler.assert_called_once()
