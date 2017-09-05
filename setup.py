@@ -20,8 +20,7 @@ setup(
     packages=[
         'webhook_logger',
     ],
-    package_dir={'webhook_logger':
-                 'webhook_logger'},
+    package_dir={'webhook_logger': 'webhook_logger'},
     include_package_data=True,
     install_requires=[
         'requests',
@@ -30,17 +29,17 @@ setup(
     zip_safe=False,
     keywords='webhook_logger',
     classifiers=[
-        'Development Status :: 2 - Pre-Alpha',
+        'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
         'Natural Language :: English',
         "Programming Language :: Python :: 2",
-        'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
     ],
     test_suite='tests',
     tests_require=[
