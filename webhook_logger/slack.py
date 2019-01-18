@@ -66,7 +66,7 @@ class SimpleSlackFormatter(logging.Formatter):
 class SlackFormatter(logging.Formatter):
 
     def __init__(self, title=None, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+        super(SlackFormatter, self).__init__(*args, **kwargs)
         self.title = title
 
     def format(self, record):
