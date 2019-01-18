@@ -22,6 +22,7 @@ DICT_CONFIG = {
     'formatters': {
         'slack_format': {
             '()': 'webhook_logger.slack.SlackFormatter',
+            'title': 'title'
         },
     },
     'handlers': {
@@ -139,7 +140,7 @@ class TestSlackLogging(unittest.TestCase):
 
         logger.info("Test with dictConfig", extra={'notify_slack': True})
         self.assertEqual(self.rm.call_count, 1)
-        self._assert_has_attachment("Test with dictConfig", "good")
+        self._assert_has_attachment("Test with dictConfig", "good", "title")
 
     @mock.patch('webhook_logger.slack.SlackHandler.handleError')
     def test_connection_error(self, error_handler):

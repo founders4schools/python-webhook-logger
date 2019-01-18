@@ -126,6 +126,7 @@ features described above:
         'formatters': {
             'slack_format': {
                 '()': 'webhook_logger.slack.SlackFormatter',
+                'title': 'Your optional title'
             },
         },
         'loggers': {
