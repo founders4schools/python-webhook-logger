@@ -50,7 +50,8 @@ class TestSlackLogging(unittest.TestCase):
     def tearDown(self):
         self.rm.stop()
 
-    def _build_logger(self, name, url=None, filter=False, formatter=False, formatter_title=None):
+    def _build_logger(self, name, url=None, filter=False, formatter=False,
+                      formatter_title=None):
         logger = logging.getLogger(name)
         logger.setLevel(logging.DEBUG)
         h = SlackHandler(hook_url=url)
@@ -109,7 +110,9 @@ class TestSlackLogging(unittest.TestCase):
 
     def test_formatter(self):
         self.rm.post('https://some-formatted-hook.com/xyz', text='ok')
-        logger = self._build_logger('formatted_on', 'https://some-formatted-hook.com/xyz', formatter=True,
+        logger = self._build_logger('formatted_on',
+                                    'https://some-formatted-hook.com/xyz',
+                                    formatter=True,
                                     formatter_title='title')
 
         logger.debug("Test debugging")
