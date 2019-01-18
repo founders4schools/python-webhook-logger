@@ -64,6 +64,11 @@ class SimpleSlackFormatter(logging.Formatter):
 
 
 class SlackFormatter(logging.Formatter):
+
+    def __init__(self, title=None, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.title = title
+
     def format(self, record):
         """
         Format message content, timestamp when it was logged and a
@@ -72,6 +77,7 @@ class SlackFormatter(logging.Formatter):
         ret = {
             'ts': record.created,
             'text': record.getMessage(),
+            'title': self.title
         }
         try:
             loglevel_colour = {

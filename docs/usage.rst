@@ -77,13 +77,13 @@ Styling
 +++++++
 
 If you wish to have a colour bar next to each message reflecting the logging
-severity, you need to use the `SlackFormatter` and attach it to your handler:
+severity, you need to use the `SlackFormatter` and attach it to your handler. The title parameter is optional.
 
 .. code-block:: python
 
     from webhook_logger.slack import SlackFormatter
 
-    h.formatter = SlackFormatter()
+    h.formatter = SlackFormatter(title='Some slack title')
 
     # Green border
     logger.info("Hello World")
