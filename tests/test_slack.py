@@ -51,12 +51,13 @@ class TestSlackLogging(unittest.TestCase):
     def tearDown(self):
         self.rm.stop()
 
-    def _build_logger(self, name, url=None, filter=False, formatter=False,
+    @staticmethod
+    def _build_logger(name, url=None, log_filter=False, formatter=False,
                       formatter_title=None):
         logger = logging.getLogger(name)
         logger.setLevel(logging.DEBUG)
         h = SlackHandler(hook_url=url)
-        if filter:
+        if log_filter:
             h.addFilter(SlackLogFilter())
         if formatter:
             h.formatter = SlackFormatter(formatter_title)
@@ -86,13 +87,13 @@ class TestSlackLogging(unittest.TestCase):
 
     def test_filtering_out(self):
         self.rm.post('https://some-hook.com/abcde', text='ok')
-        logger = self._build_logger('filter_out', 'https://some-hook.com/abcde', filter=True)
+        logger = self._build_logger('filter_out', 'https://some-hook.com/abcde', log_filter=True)
         logger.info("test filtering")
         self.assertEqual(self.rm.call_count, 0)
 
     def test_filtering_in(self):
         self.rm.post('https://some-hook.com/abcde', text='ok')
-        logger = self._build_logger('filter_in', 'https://some-hook.com/abcde', filter=True)
+        logger = self._build_logger('filter_in', 'https://some-hook.com/abcde', log_filter=True)
         logger.info("test filtering", extra={'notify_slack': True})
         self.assertEqual(self.rm.call_count, 1)
         self.assertEqual(self.rm.last_request.body.decode(), '{"text": "test filtering"}')
